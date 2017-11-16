@@ -21,7 +21,7 @@ Data and descriptions modified from https://www.kaggle.com/c/datasciencebowl
 
 Submissions are evaluated using the multi-class logarithmic loss. Each image has been labeled with one true class. For each image, you must submit a set of predicted probabilities (one for every class). The formula is then,
 
-![loss](http://chart.apis.google.com/chart?cht=tx&chf=bg,s,FFFFFF00&chl=logloss=-\frac{1}{N}\sum_{i=1}^N\sum_{j=1}^M y_{ij}\log(p_{ij}))
+![loss](http://chart.apis.google.com/chart?cht=tx&chf=bg,s,FFFFFF00&chl=logloss=-\frac{1}{N}\sum_{i=1}^N\sum_{j=1}^My_{ij}\log(p_{ij}))
 
 where N is the number of images in the test set, M is the number of class labels, log is the natural logarithm, yijyij is 1 if observation i is in class j and 0 otherwise, and pijpij is the predicted probability that observation i belongs to class j.
 
