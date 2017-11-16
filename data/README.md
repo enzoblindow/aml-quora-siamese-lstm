@@ -13,12 +13,12 @@ The presence of "unknown" classes require models to handle the special cases of 
 
 ## Files
 
-**train_images** - a folder that contains all training images.
-**test_images** - a folder that contains all test images.
-**train.csv** - map each image in train_images folder to its class. The labels are one-hot, meaning only 1 class is 1, the others are 0.
-**label_map.txt** - map each class to its label.
-**plankton_identification.pdf** - a rough guide to understand relationships between the classes. The tree-like diagram indicates morphological and biological connections between groups. Dashed lines indicate a weak(er) relationship and solid lines a stronger relationship.
-**my_sample_submission.csv** - provides the appropriate format for generating a valid submission.
+- **train_images** - a folder that contains all training images.
+- **test_images** - a folder that contains all test images.
+- **train.csv** - map each image in train_images folder to its class. The labels are one-hot, meaning only 1 class is 1, the others are 0.
+- **label_map.txt** - map each class to its label.
+- **plankton_identification.pdf** - a rough guide to understand relationships between the classes. The tree-like diagram indicates morphological and biological connections between groups. Dashed lines indicate a weak(er) relationship and solid lines a stronger relationship.
+- **my_sample_submission.csv** - provides the appropriate format for generating a valid submission.
 
 
 Classes were chosen by the Hatfield experts and represent scientifically meaningful groupings of organisms and objects (see the below FAQs). You will notice that it is possible for different classes to contain the same underlying organism. In these cases, they have been separated based on other factors of interest (e.g. one may represent an organism in motion vs. one that is still). You are permitted to use domain knowledge about the class relationships in your methodology. The official list of classes is the following:
