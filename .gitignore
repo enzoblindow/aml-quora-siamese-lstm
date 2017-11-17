@@ -104,6 +104,6 @@ ENV/
 .idea/
 
 # test and train images
-data/test_images/
-data/train_images/
+data/test_images/*.jpg
+data/train_images/*.jpg
 
