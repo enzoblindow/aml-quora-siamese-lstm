@@ -99,3 +99,10 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# pycharm IDE
+.idea/
+
+# test and train images
+data/test_images/
+data/train_images/
