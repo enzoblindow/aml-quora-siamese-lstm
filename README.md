@@ -1,40 +1,37 @@
-# aml-kaggle
+# Quora Question Pairs
 
 ## Project Description
-Plankton are critically important to our ecosystem, accounting for more than half the primary productivity on earth and nearly half the total carbon fixed in the global carbon cycle. They form the foundation of aquatic food webs including those of large, important fisheries. Loss of plankton populations could result in ecological upheaval as well as negative societal impacts, particularly in indigenous cultures and the developing world. Plankton’s global significance makes their population levels an ideal measure of the health of the world’s oceans and ecosystems.
+Where else but Quora can a physicist help a chef with a math problem and get cooking tips in return? Quora is a place to gain and share knowledge—about anything. It’s a platform to ask questions and connect with people who contribute unique insights and quality answers. This empowers people to learn from each other and to better understand the world.
 
-Traditional methods for measuring and monitoring plankton populations are time consuming and cannot scale to the granularity or scope necessary for large-scale studies. Improved approaches are needed. One such approach is through the use of an underwater imagery sensor. This towed, underwater camera system captures microscopic, high-resolution images over large study areas. The images can then be analyzed to assess species populations and distributions.
+Over 100 million people visit Quora every month, so it's no surprise that many people ask similarly worded questions. Multiple questions with the same intent can cause seekers to spend more time finding the best answer to their question, and make writers feel they need to answer multiple versions of the same question. Quora values canonical questions because they provide a better experience to active seekers and writers, and offer more value to both of these groups in the long term.
 
-Manual analysis of the imagery is infeasible – it would take a year or more to manually analyze the imagery volume captured in a single day. Automated image classification using machine learning tools is an alternative to the manual approach. Analytics will allow analysis at speeds and scales previously thought impossible. The automated system will have broad applications for assessment of ocean and ecosystem health.
-
-The National Data Science Bowl challenges you to build an algorithm to automate the image identification process. Scientists at the Hatfield Marine Science Center and beyond will use the algorithms you create to study marine food webs, fisheries, ocean conservation, and more. This is your chance to contribute to the health of the world’s oceans, one plankton at a time.
+Currently, Quora uses a Random Forest model to identify duplicate questions. In this competition, Kagglers are challenged to tackle this natural language processing problem by applying advanced techniques to classify whether question pairs are duplicates or not. Doing so will make it easier to find high quality answers to questions resulting in an improved experience for Quora writers, seekers, and readers.
 
 Acknowledgements
 
-The National Data Science Bowl is presented by with data provided by the Hatfield Marine Science Center at Oregon State University.
-
-Acknowledgements
-
-Data and descriptions modified from https://www.kaggle.com/c/datasciencebowl
+Data and descriptions modified from https://www.kaggle.com/c/quora-question-pairs
 
 ## Evaluation
 
-Submissions are evaluated using the multi-class logarithmic loss. Each image has been labeled with one true class. For each image, you must submit a set of predicted probabilities (one for every class). The formula is then,
+Submissions are evaluated on the category accuracy between the predicted label (0 or 1) and the truth label (0 or 1). 1 means duplicate and 0 otherwise. The formula is then,
 
-![loss](http://chart.apis.google.com/chart?cht=tx&chf=bg,s,FFFFFF00&chl=logloss=-\frac{1}{N}\sum_{i=1}^N\sum_{j=1}^My_{ij}\log(p_{ij}))
+![loss](http://chart.apis.google.com/chart?cht=tx&chf=bg,s,FFFFFF00&chl=CategoryAccuracy=\frac{1}{N}\sum{1}_{y_i=\hat{y}_i})
 
-where N is the number of images in the test set, M is the number of class labels, log is the natural logarithm, yijyij is 1 if observation i is in class j and 0 otherwise, and pijpij is the predicted probability that observation i belongs to class j.
+where N is the number of question pairs in the test set, yiyi is the true label for the i-th question pair, and ŷ iy^i is the predicted label.
 
-The submitted probabilities for a given image are not required to sum to one because they are rescaled prior to being scored (each row is divided by the row sum). In order to avoid the extremes of the log function, predicted probabilities are replaced with max(min(p,1−10−15),10−15)max(min(p,1−10−15),10−15).
+Submission File
+
+For each question pair in the test set, you must predict whether the questions are duplicates. The file should contain a header and have the following format:
 
 ### Submission Format
 
 You must submit a csv file with the image name, all candidate class names, and a probability for each class. The order of the rows does not matter. The file must have a header and should look like the following:
 
 ```
-image,acantharia_protist_big_center,...,unknown_unclassified
-1.jpg,0.00826446,...,0.00826446
-10.jpg,0.00826446,...,0.00826446
+test_id,is_duplicate
+0,1
+1,1
+2,1
 ...
-etc
+etc.
 ```
