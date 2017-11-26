@@ -1,3 +1,6 @@
+import pickle
+import pathlib
+
 import pandas as pd
 
 
@@ -22,3 +25,13 @@ def get_data(test=False, unicoded=False):
         return df.loc[(df.question1 != 'invalid') | (df.question2 != 'invalid'), :]
     else:
         return df
+
+
+def save_model(model, model_dir):
+    model_dir = pathlib.Path(model_dir)
+    weights = model.get_weights()
+    if model_dir is not None:
+        with (model_dir / 'model').open('wb') as file_:
+            pickle.dump(weights[1:], file_)
+        with (model_dir / 'config.json').open('wb') as file_:
+            file_.write(model.to_json())
