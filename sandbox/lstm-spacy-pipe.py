@@ -208,7 +208,7 @@ def main(model_dir=None, train_dir=None, dev_dir=None,
             with (model_dir / 'config.json').open('wb') as file_:
                 file_.write(lstm.to_json())
 
-# temp
+# add in quora training data
 from sklearn.model_selection import train_test_split
 from helpers import get_data
 df = get_data(unicoded=True)
@@ -220,6 +220,31 @@ train_labels = numpy.asarray(train_labels, dtype='int32')
 dev_texts = test.text.values
 dev_labels = test.is_duplicate.values
 dev_labels = numpy.asarray(dev_labels, dtype='int32')
+
+# init pipe
+nlp = spacy.load('en_vectors_web_lg')
+nlp.add_pipe(nlp.create_pipe('sentencizer'))
+
+# write training predictions
+tmp_data = get_data(unicoded=True)
+tmp_data['text'] = tmp_data.question1 + u' ' + tmp_data.question2
+tmp_texts = tmp_data.text.values
+tmp_texts = list(nlp.pipe(tmp_texts))
+tmp_X = get_features(tmp_texts, 100)
+tmp_preds = lstm.predict(tmp_X)
+tmp_df = pd.DataFrame({"test_id": tmp_data.id.values, "is_duplicate": tmp_preds.ravel()})
+tmp_df.to_csv("spacy_lstm_train_weights.csv", index=False)
+
+# apply to test data
+test_data = get_data(test=True, unicoded=True)
+test_data['text'] = test_data.question1 + u' ' + test_data.question2
+final_texts = test_data.text.values
+final_texts = list(nlp.pipe(final_texts))
+final_X = get_features(final_texts, 100)
+final_preds = lstm.predict(final_X)
+final_df = pd.DataFrame({"test_id": test_data.test_id.values, "is_duplicate": np.round(final_preds.ravel()).astype(int)})
+final_df.to_csv("spacy_LSTM_5epochs.csv", index=False)
+
 
 if __name__ == '__main__':
     plac.call(main)
