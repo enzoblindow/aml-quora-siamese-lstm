@@ -94,7 +94,7 @@ def train(train_texts, train_labels, dev_texts, dev_labels, lstm_shape, lstm_set
     nlp = spacy.load('en_vectors_web_lg')
     nlp.add_pipe(nlp.create_pipe('sentencizer'))
     embeddings = get_embeddings(nlp.vocab)
-    model = compile_lstm(embeddings, lstm_shape, lstm_settings)
+    # model = compile_lstm(embeddings, lstm_shape, lstm_settings)
     print("Parsing texts...")
     train_docs = list(nlp.pipe(train_texts))
     dev_docs = list(nlp.pipe(dev_texts))
@@ -224,6 +224,13 @@ dev_labels = numpy.asarray(dev_labels, dtype='int32')
 # init pipe
 nlp = spacy.load('en_vectors_web_lg')
 nlp.add_pipe(nlp.create_pipe('sentencizer'))
+
+# save model
+from helpers import save_model
+save_model(lstm, 'models/spacy-lstm/')
+
+# extend trained model
+lstm.fit(train_X, train_labels, validation_data=(dev_X, dev_labels), nb_epoch=20, batch_size=1000)
 
 # write training predictions
 tmp_data = get_data(unicoded=True)
