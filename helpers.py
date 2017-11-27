@@ -3,6 +3,7 @@ import pickle
 import pathlib
 
 import pandas as pd
+from keras.models import model_from_json
 
 
 def unicoder(str):
@@ -39,3 +40,18 @@ def save_model(model, model_dir):
         with (model_dir / 'config.json').open('wb') as file_:
             file_.write(model.to_json())
             logging.info('Saved model configs to {}{}'.format(model_dir, 'config.json'))
+
+
+def load_model(model_dir, embeddings):
+    model_dir = pathlib.Path(model_dir)
+    logging.info('Generating weights')
+    with (model_dir / 'config.json').open() as file_:
+        model = model_from_json(file_.read())
+        logging.info('Loaded model from {}{}'.format(model_dir, 'model'))
+    with (model_dir / 'model').open('rb') as file_:
+        lstm_weights = pickle.load(file_)
+        logging.info('Loaded weights from {}{}'.format(model_dir, 'model'))
+    model.set_weights([embeddings] + lstm_weights)
+    logging.info('Model loading finished with embeddings')
+
+
