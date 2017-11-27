@@ -1,3 +1,4 @@
+import logging
 import pickle
 import pathlib
 
@@ -29,9 +30,12 @@ def get_data(test=False, unicoded=False):
 
 def save_model(model, model_dir):
     model_dir = pathlib.Path(model_dir)
+    logging.info('Generating weights')
     weights = model.get_weights()
     if model_dir is not None:
         with (model_dir / 'model').open('wb') as file_:
             pickle.dump(weights[1:], file_)
+            logging.info('Saved weights to {}{}'.format(model_dir, 'model'))
         with (model_dir / 'config.json').open('wb') as file_:
             file_.write(model.to_json())
+            logging.info('Saved model configs to {}{}'.format(model_dir, 'config.json'))
