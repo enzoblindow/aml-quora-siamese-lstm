@@ -107,3 +107,4 @@ ENV/
 data/test_images/*.jpg
 data/train_images/*.jpg
 *.csv
+glove.6B.300d.txt
