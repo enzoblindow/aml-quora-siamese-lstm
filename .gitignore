@@ -106,4 +106,9 @@ ENV/
 # test and train images
 data/test_images/*.jpg
 data/train_images/*.jpg
+
+# ignore csvs, except in the model dir
 *.csv
+!/models/**/*.csv
+
+glove.6B.300d.txt
