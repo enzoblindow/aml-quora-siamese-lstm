@@ -13,14 +13,14 @@ def unicoder(str):
         return u'invalid'
 
 
-def get_data(test=False, unicoded=False):
+def get_data(test_path='data/test_data.csv', test=False, unicoded=False):
     if not test:
         df_train = pd.read_csv('data/train_data.csv')
         df_train.drop(['is_duplicate'], axis=1, inplace=True)
         df_labels = pd.read_csv('data/train_labels.csv')
         df = df_train.merge(df_labels)
     else:
-        df = pd.read_csv('data/test_data.csv')
+        df = pd.read_csv(test_path)
     if unicoded:
         df.question1 = df.question1.apply(lambda x: unicoder(x))
         df.question2 = df.question2.apply(lambda x: unicoder(x))
@@ -53,5 +53,4 @@ def load_model(model_dir, embeddings):
         logging.info('Loaded weights from {}{}'.format(model_dir, 'model'))
     model.set_weights([embeddings] + lstm_weights)
     logging.info('Model loading finished with embeddings')
-
-
+    return model
