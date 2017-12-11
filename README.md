@@ -1,7 +1,7 @@
 # Siamese Network Question Pair Classifier
 
-* Usage
-* Requirements
+* [Usage](https://github.com/enzoblindow/aml-kaggle#usage)
+* [Requirements](https://github.com/enzoblindow/aml-kaggle#requirements)
 
 ## Usage
 All pieces of the pipeline are written in several iPython notebooks all located in the `/notebooks/` directory. Below graphic indicates how to run the notebooks to fully run a training or test cycle. Please make sure that the data files are named correspondingly.
