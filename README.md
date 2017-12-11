@@ -1,4 +1,5 @@
 # Siamese Network Question Pair Classifier
+This classifier was built to compete in the Applied Machine Learning course UvA 2017 Kaggle Project: Identifying Quora Question Pairs
 
 * [Usage](https://github.com/enzoblindow/aml-kaggle#usage)
 * [Requirements](https://github.com/enzoblindow/aml-kaggle#requirements)
